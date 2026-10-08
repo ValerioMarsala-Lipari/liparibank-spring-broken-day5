@@ -9,10 +9,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.lipari.bank.auth.model.BankUser;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,6 +29,8 @@ import java.util.stream.Collectors;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
+    private final BankUserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     @Operation(summary = "Login utente", description = "Autentica un utente con username e password")
@@ -46,5 +52,41 @@ public class AuthController {
         ));
     }
 
+    @PostMapping("/change-password")
+    @Operation(summary = "Cambio password", description = "Permette all'utente autenticato di cambiare la propria password")
+    public ResponseEntity<Map<String, String>> changePassword(
+        @RequestBody ChangePasswordRequest request) {
+
+        String username = SecurityContextHolder.getContext()
+            .getAuthentication()
+            .getName();
+
+        BankUser user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("Utente non trovato"));
+
+        if (!passwordEncoder.matches(request.currentPassword(), user.getPassword())) {
+            return ResponseEntity
+                .badRequest()
+                .body(Map.of("message", "La password attuale non è corretta"));
+        }
+
+        if (request.newPassword() == null || request.newPassword().length() < 8) {
+            return ResponseEntity
+                .badRequest()
+                .body(Map.of("message", "La nuova password deve contenere almeno 8 caratteri"));
+        }
+
+        user.setPassword(passwordEncoder.encode(request.newPassword()));
+        userRepository.save(user);
+
+        return ResponseEntity.ok(
+            Map.of("message", "Password modificata con successo")
+        );
+    }
+
     public record LoginRequest(String username, String password) {}
+    public record ChangePasswordRequest(
+        String currentPassword,
+        String newPassword
+    ) {}
 }
