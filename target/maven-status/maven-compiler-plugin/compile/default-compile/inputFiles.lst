@@ -1,0 +1,15 @@
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\account\Account.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\account\AccountController.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\account\AccountRepository.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\account\AccountService.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\auth\AuthController.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\auth\BankUserRepository.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\auth\LipariBankUserDetailsService.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\auth\model\BankUser.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\auth\model\Role.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\LipariBankApplication.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\shared\config\DataInitializer.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\shared\config\OpenApiConfig.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\shared\config\SecurityConfig.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\shared\security\LipariBankAccessDeniedHandler.java
+C:\Users\User\Downloads\liparibank-day05-broken\src\main\java\com\lipari\bank\shared\security\LipariBankAuthenticationEntryPoint.java
